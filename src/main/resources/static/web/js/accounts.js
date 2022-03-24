@@ -50,7 +50,7 @@ let app = new Vue({
 			axios.patch('/api/accounts/deleteaccount', "id=" + id).then(response => app.loadData()).catch(Error => Swal.fire(Error.response.data));
 		},
 		addType(id) {
-			axios.patch('/api/accounts/addtype', "id=" + id + "&type=" + app.accountType).then(response => app.loadData(), Swal.fire('El tipo de cuenta ha sido asignado con exito')).catch(error =>  Swal.fire(error));
+			axios.patch('/api/accounts/addtype', "id=" + id + "&type=" + app.accountType).then(response => app.loadData(), Swal.fire('El tipo de cuenta ha sido asignado con exito')).catch(error => Swal.fire(error));
 		},
 		showCard(index) {
 			const cards = document.querySelector(".set-card");
@@ -74,6 +74,7 @@ let app = new Vue({
 			const navMenuUser = document.querySelector(".nav-menu-user");
 			navMenuUser.classList.toggle("invisible");
 			navMenuUser.classList.toggle("opacity-0");
+			navMenuUser.classList.toggle("right-400");
 		},
 		activeNightMode() {
 			axios.patch("/api/nightmode")
@@ -82,7 +83,7 @@ let app = new Vue({
 				})
 		},
 		signOut() {
-			axios.post('/api/logout').then(response => window.location.href = "/web/index.html",  Swal.fire('Nos vemos pronto ' + app.client.firstName + '!'));
+			axios.post('/api/logout').then(response => window.location.href = "/web/index.html", Swal.fire('Nos vemos pronto ' + app.client.firstName + '!'));
 		},
 		format(num) { return String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,'); },
 	}
