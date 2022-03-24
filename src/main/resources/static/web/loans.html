@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="shortcut icon" href="./favicon.ico" />
+  <title>Prestamos</title>
+</head>
+
+<body class="h-screen w-screen overflow-x-hidden bg-slate-50 transition ease-in-out duration-500">
+
+  <div class="h-screen w-screen fixed z-50 bg-slate-50 flex justify-center items-center preloaded">
+    <div class="loadingio-spinner-rolling-a0brll2sk18">
+      <div class="ldio-lfdg8ky8s88">
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="app">
+
+    <nav class="navbar flex right-2">
+
+      <ul class="sm:visible invisible font-medium top-4 fixed flex flex-wrap rounded text-xl items-center">
+        <a v-show="!switchNightMode" href="#"> <img src="./assets/logo.png" alt="logo" class="h-8 ml-5 mt-1"></a>
+        <a v-show="switchNightMode" href="#"> <img src="./assets/night_logo.png" alt="night_logo"
+            class="h-8 ml-5 mt-1"></a>
+        <li class="py-1 ml-2 hover:text-slate-400 hover:translate-y-1 transition ease-in-out duration-500 text-night">
+          <a href="./index.html" class="p-4"> inicio </a>
+        </li>
+        <li class="py-1 hover:text-slate-400 hover:translate-y-1 transition ease-in-out duration-500 text-night">
+          <a href="./payment.html" class="p-4"> realizar pago </a>
+        </li>
+      </ul>
+
+      <div class="sm:invisible visible flex flex-col ml-2 fixed top-1">
+        <button @click="showToggle"
+          class="self-start border-4 my-1 px-2 rounded-md text-2xl menu-night transition ease-in-out duration-500">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div
+          class="nav-menu invisible opacity-0 rounded-md text-md border-4 night_border-slate-600 transition ease-in-out duration-500">
+          <ul>
+            <li
+              class="hover:bg-slate-600 py-1 night_text-slate-600 night_bg-white hover:text-white transition ease-in-out duration-500">
+              <a href="./accounts.html" class="p-4"> inicio </a>
+            </li>
+            <li
+              class="hover:bg-slate-600 py-1 night_text-slate-600 night_bg-white hover:text-white transition ease-in-out duration-500">
+              <a href="./payment.html" class="p-4"> realizar pago </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex flex-col fixed sm:top-3 top-1 sm:right-5 right-1">
+        <button @click="showUser"
+          class="self-end my-1 px-2 rounded-full text-2xl transition border-4 ease-in-out duration-500 menu-night">
+          <i class="fas fa-user"></i>
+        </button>
+        <div
+          class="mt-1 nav-menu-user invisible opacity-0 rounded-md border-4 night_border-slate-600 text-center transition ease-in-out duration-500 animation ">
+          <ul>
+            <li class="px-5 pt-2 text-5xl night_bg-slate-600 text-white font-medium">
+              <i class="fas fa-user"></i>
+            </li>
+            <li class="px-3 text-md night_bg-slate-600 text-white font-semibold">
+              {{client.firstName}} {{client.lastName}}
+            </li>
+            <li class="text-sm px-2 pb-2 night_bg-slate-600 text-white">
+              {{client.email}}
+            </li>
+            <li
+              class="border-2 p-2 night_border-slate-600 hover:border-white text-sm night_bg-white night_text-slate-600 hover:text-white hover:bg-slate-600 transition ease-in-out duration-500">
+              <a href="./accounts.html" class="p-3">Cuentas</a>
+            </li>
+            <li
+              class="border-2 p-2 night_border-slate-600 hover:border-white text-sm night_bg-white night_text-slate-600 hover:text-white hover:bg-slate-600 transition ease-in-out duration-500">
+              <a href="./cards.html" class="p-3">Tarjetas</a>
+            </li>
+            <li
+              class="border-2 p-2 night_border-slate-600 hover:border-white text-sm night_bg-white night_text-slate-600 hover:text-white hover:bg-slate-600 transition ease-in-out duration-500">
+              <a href="./transactions.html" class="p-3">Transacciones</a>
+            </li>
+            <li
+              class="border-2 p-2 night_border-slate-600 hover:border-white text-sm night_bg-white night_text-slate-600 hover:text-white hover:bg-slate-600 transition ease-in-out duration-500">
+              <a href="./loans.html" class="p-3">Prestamos</a>
+            </li>
+            <li>
+              <button @click="signOut"
+                class="p-2 w-full border-2 night_border-slate-600 hover:border-white text-sm night_bg-white night_text-slate-600 hover:text-white hover:bg-red-400 transition ease-in-out duration-500"
+                type="button">Cerrar sesión</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="nightMode" class="z-30 sm:top-3 top-1 fixed sm:right-20 right-16">
+        <button v-show="!switchNightMode" @click="activeNightMode"
+          class="border-4 border-sky-500 my-1 px-2 rounded-full text-2xl text-sky-500 bg-white hover:bg-sky-500 hover:text-white transition ease-in-out duration-500">
+          <i class="fas fa-moon"></i>
+        </button>
+
+        <button v-show="switchNightMode" @click="activeNightMode"
+          class="z-50 border-4 border-emerald-400 my-1 px-2 rounded-full text-2xl text-emerald-400 hover:bg-emerald-400 hover:text-white transition ease-in-out duration-500">
+          <i class="fas fa-sun"></i>
+        </button>
+
+      </div>
+    </nav>
+
+    <main class="flex flex-col items-center h-screen w-screen">
+
+      <section class="rounded mt-20 sm:mt-4 sm:mt-16 sm:mr-3 sm:border shadow w-11/12 sm:w-7/12 bg-night">
+        <h2 class="text-2xl night_text-sky-to-white text-center font-semibold p-1 animation">Prestamos</h2>
+
+        <template v-for="loan in loans">
+
+          <div
+            class="card flex align-left p-3 border-t bg-night text-night-white text-slate-500 justify-between w-full">
+            <p class="p-3 w2/6 font-medium" v-cloak>{{loan.name}} </p>
+            <div>
+              <p class=" p-3 w2/6 text-right" v-cloak>${{format(loan.amount)}} </p>
+              <p class=" p-3 w2/6 text-sm text-right" v-cloak>{{loan.payments}} Cuotas</p>
+            </div>
+          </div>
+        </template>
+
+        <template v-if="!loans.length">
+          <p class="p-3 border-t text-center animation text-slate-500">Todavía no tienes prestamos</p>
+        </template>
+
+        <p class="p-3 border-t text-center text-night-white animation"><a href="./create-loans.html">Agregar prestamo <i
+              class="fas fa-plus"></i></a></p>
+
+      </section>
+    </main>
+
+    <svg v-show="switchNightMode" class="transition ease-in-out duration-500 fixed bottom-0 -z-10"
+      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path fill="#1e293b" fill-opacity="1"
+        d="M0,160L40,133.3C80,107,160,53,240,64C320,75,400,149,480,197.3C560,245,640,267,720,272C800,277,880,267,960,229.3C1040,192,1120,128,1200,96C1280,64,1360,64,1400,64L1440,64L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
+      </path>
+    </svg>
+    <svg v-show="!switchNightMode" class="transition ease-in-out duration-500 fixed bottom-0 -z-10 m-0"
+      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path fill="#0ea5e9" fill-opacity="1"
+        d="M0,160L40,133.3C80,107,160,53,240,64C320,75,400,149,480,197.3C560,245,640,267,720,272C800,277,880,267,960,229.3C1040,192,1120,128,1200,96C1280,64,1360,64,1400,64L1440,64L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
+      </path>
+    </svg>
+
+  </div>
+
+  <footer class="fixed bottom-0 flex flex-wrap p-1 text-slate-200 mt-24 left-1 sm:m-0">
+    <a target="_blank" href="https://github.com/mauri-godoy">
+      <p class="hover:-translate-y-2 hover:opacity-100 opacity-75 transition ease-in-out duration-500"><i
+          class="fab fa-github"></i> GitHub </p>
+    </a>
+    <a target="_blank" href="https://www.linkedin.com/in/mauri-godoy1/">
+      <p class="hover:-translate-y-2 hover:opacity-100 opacity-75 transition ease-in-out duration-500">&nbsp<i
+          class="fab fa-linkedin"></i> Linkedin</p>
+    </a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js "></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./js/nightMode.js"></script>
+  <script src="./js/accounts.js"></script>
+</body>
+
+</html>

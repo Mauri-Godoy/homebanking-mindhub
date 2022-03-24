@@ -1,0 +1,118 @@
+<?php require_once("index.html") ?>
+<!DOCTYPE html>
+<html lang="es" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="shortcut icon" href="./favicon.ico" />
+  <title>Inicia sesión o regístrate</title>
+</head>
+
+<body class="h-screen w-screen overflow-x-hidden bg-slate-100 transition ease-in-out duration-500">
+
+  <div class="h-screen w-screen fixed z-50 bg-slate-50 flex justify-center items-center preloaded">
+    <div class="loadingio-spinner-rolling-a0brll2sk18">
+      <div class="ldio-lfdg8ky8s88">
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <svg class="animation fixed bottom-0 -z-10 m-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <path fill=" #0ea5e9" fill-opacity="1"
+      d="M0,256L30,261.3C60,267,120,277,180,240C240,203,300,117,360,74.7C420,32,480,32,540,69.3C600,107,660,181,720,229.3C780,277,840,299,900,304C960,309,1020,299,1080,250.7C1140,203,1200,117,1260,90.7C1320,64,1380,96,1410,112L1440,128L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z">
+    </path>
+  </svg>
+
+  <div id="app">
+
+    <nav class="navbar flex right-2">
+
+      <ul class="sm:visible invisible font-medium top-4 fixed flex flex-wrap rounded text-xl items-center">
+        <a href="#"> <img src="./assets/logo.png" alt="logo" class="h-8 ml-5 mt-1"></a>
+      </ul>
+
+      <div class="z-30 top-1 sm:top-4 fixed right-2 sm:right-6">
+
+        <button @click="switchSignIn = true; switchRegister = false;"
+          class="z-50 text-base border-2 border-slate-600 my-1 px-3 py-2 rounded text-slate-600  hover:bg-slate-600  hover:text-white transition ease-in-out duration-300">
+          Iniciar Sesión
+        </button>
+
+        <button @click="switchSignIn = false; switchRegister = true;"
+          class="z-50 text-base border-2 border-slate-600 my-1 px-3 py-2 ml-3 rounded hover:text-slate-600 bg-slate-600 hover:bg-white text-white transition ease-in-out duration-300">
+          Registrar
+        </button>
+
+      </div>
+    </nav>
+
+    <main class="w-screen h-screen flex items-center justify-center border">
+      <form v-show="switchSignIn"
+        class="flex flex-col px-5 py-3 bg-night text-night-white border shadow rounded transition ease-in-out duration-500">
+        <h1 class="text-slate-700 font-semibold text-2xl p-3">Iniciar sesión en tu cuenta</h1>
+        <label class="text-base p-3 mt-1 text-slate-700" for="emailUser">Ingrese su email</label>
+        <input class="text-base p-3 mb-1 border rounded" v-model="emailUser" type="email" id="emailUser"
+          placeholder="email" required>
+        <label class="text-base p-3 mt-1 text-slate-700" for="passwordUser">Ingrese su contraseña</label>
+        <input class="text-base p-3 mb-1 border rounded" v-model="passwordUser" type="password" id="passwordUser"
+          placeholder="contraseña" required>
+        <button
+          class="p-3 m-1 rounded border-2 border-sky-500 hover:bg-sky-500 hover:text-white font-semibold bg-white text-sky-500 transition ease-in-out duration-300"
+          @click="signIn" type="button">Iniciar Sesión</button>
+        <p v-show="signInError" class="text-red-500 px-3">Contraseña o correo incorrectos</p>
+        <p class="text-slate-700 pt-3 text-xs">Ante cualquier problema o consulta comunicarse a <br>este correo: mauu.godoy01@gmail.com</p>
+      </form>
+
+      <form v-show="switchRegister"
+        class="grid grid-cols-2 px-5 py-3 bg-night text-night-white border shadow rounded transition ease-in-out duration-500">
+        <h1 class="col-span-2 text-slate-700 font-semibold text-2xl p-3 text-center mb-2">Formulario de registro</h1>
+        <label class="text-base p-3 text-slate-700 items-end" for="firstName">Nombre</label>
+        <input class="text-base p-3 border rounded my-2" v-model="firstName" type="text" id="firstName"
+          placeholder="nombre" required>
+        <label class="text-base p-3 text-slate-700" for="lastName">Apellido</label>
+        <input class="text-base p-3 border rounded my-2" v-model="lastName" type="text" id="lastName"
+          placeholder="apellido" required>
+        <label class="text-base p-3 text-slate-700" for="email">Email</label>
+        <input class="text-base p-3 border rounded my-2" v-model="email" type="email" id="email" placeholder="email"
+          required>
+        <label class="text-base p-3 text-slate-700" for="password">Contraseña</label>
+        <input class="text-base p-3 border rounded my-2" v-model="password" type="password" id="password"
+          placeholder="contraseña" required>
+        <button
+          class="col-span-2 p-3 m-1 rounded border-2 border-sky-400 hover:bg-sky-400 hover:text-white font-semibold bg-white text-sky-400 transition ease-in-out duration-300"
+          @click="register" type="button">Registrar</button>
+      </form>
+    </main>
+
+  </div>
+
+  <footer class="fixed bottom-0 flex flex-wrap p-1 text-slate-200 mt-24 left-1 sm:m-0">
+    <a target="_blank" href="https://github.com/mauri-godoy">
+      <p class="hover:-translate-y-2 hover:opacity-100 opacity-75 transition ease-in-out duration-500"><i
+          class="fab fa-github"></i> GitHub </p>
+    </a>
+    <a target="_blank" href="https://www.linkedin.com/in/mauri-godoy1/">
+      <p class="hover:-translate-y-2 hover:opacity-100 opacity-75 transition ease-in-out duration-500">&nbsp<i
+          class="fab fa-linkedin"></i> Linkedin</p>
+    </a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js "></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./js/nightMode.js"></script>
+  <script src="./js/index.js"></script>
+</body>
+
+</html>

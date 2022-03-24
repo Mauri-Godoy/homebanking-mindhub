@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <title>Cuenta</title>
+  </head>
+
+  <body class="h-screen w-screen overflow-x-hidden bg-slate-50">
+
+  <div id="particles-js" class="h-screen w-screen fixed -z-10"></div>
+  <div class="h-screen w-screen fixed z-50 bg-slate-50 flex justify-center items-center preloaded">
+    <div class="loadingio-spinner-rolling-a0brll2sk18"><div class="ldio-lfdg8ky8s88">
+      <div></div>
+    </div></div>
+  </div>
+
+    <div id="app">
+      <nav class="navbar flex right-2">
+          <div class="flex flex-col ml-4 fixed top-1">
+            <button
+                    @click="showToggle"
+                    class="self-start border-4 border-slate-600 my-1 px-2 rounded-md text-2xl hover:text-slate-600 bg-slate-600 hover:bg-white text-white transition ease-in-out duration-500"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div
+                    class="nav-menu invisible opacity-0 rounded-md text-md border-4 border-slate-600 transition ease-in-out duration-500"
+            >
+              <ul>
+                <li
+                        class="bg-slate-600 py-1 hover:text-slate-600 hover:bg-white text-white transition ease-in-out duration-500"
+                >
+                  <a href="#" class="p-4"> home </a>
+                </li>
+                <li
+                        class="bg-slate-600 py-1 hover:text-slate-600 hover:bg-white text-white transition ease-in-out duration-500"
+                >
+                  <a href="#" class="p-4"> about </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flex flex-col fixed right-4 top-1">
+            <button
+                    @click="showUser"
+                    class="self-end border-4 border-slate-600 my-1 px-2 rounded-full text-2xl hover:text-slate-600 bg-slate-600 hover:bg-white text-white transition ease-in-out duration-500"
+            >
+              <i class="fas fa-user"></i>
+            </button>
+            <div
+                    class="nav-menu-user invisible opacity-0 rounded-md border-4 border-slate-600 text-center transition ease-in-out duration-500 animation "
+            >
+              <ul>
+                <li class="px-5 pt-2 text-5xl bg-slate-600 text-white font-medium">
+                  <i class="fas fa-user"></i>
+                </li>
+                <li class="px-3 text-md bg-slate-600 text-white font-semibold">
+                  {{account.owner_firstName}} {{account.owner_lastName}}
+                </li>
+                <li class="text-sm px-2 pb-2 bg-slate-600 text-white">
+                  {{account.owner_email}}
+                </li>
+                <li  class="border-2 p-2 border-slate-600 hover:border-white text-sm bg-white text-slate-600 hover:text-white hover:bg-slate-600 transition ease-in-out duration-500">
+                  <a class="p-3"  v-bind:href="'./accounts.html?id='+ account.owner_id">Cuentas</a>
+                </li>
+                <li  class="border-2 p-2 border-slate-600 hover:border-white text-sm bg-white text-slate-600 hover:text-white hover:bg-slate-600 transition ease-in-out duration-500">
+                  <a class="p-3"  v-bind:href="'./cards.html?id='+ account.owner_id">Tarjetas</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+      </nav>
+
+      <main class="w-screen flex justify-around h-11/12 md:flex-nowrap flex-wrap">
+    <template v-if="account.balance < 0">
+  <section class="my-32 self-start p-5 rounded bg-sky-500 w-96 animation">
+      <h2 class="text-3xl text-white text-center font-semibold p-2" v-cloak>
+        Cuenta: {{account.number}}  <i class="fas fa-exclamation warning"></i> </i>
+      </h2>
+      <p class="text-xl text-center text-white p-2 border-t border-white v-cloack">Balance: - ${{account.balance * -1}}</p>
+    <p class="text-xs text-justify pt-1 my-1 border-t border-black">De no verificarse el pago de la deuda pendiente en las próximas 72 horas, su cuenta será bloqueada y se tomarán medidas.</p>
+  </section>
+    </template>
+    <template v-else>
+  <section class="my-32 border self-start p-5 rounded bg-sky-500 shadow w-96 animation">
+      <h2 class="text-3xl text-white text-center font-semibold p-2" v-cloak>
+        Cuenta: {{account.number}}
+      </h2>
+    <p class="text-xl text-center text-white p-2 border-t border-white v-cloack">Balance: ${{account.balance}}</p>
+  </section>
+    </template>
+
+  <section class="rounded overflow-auto my-4 sm:my-16 sm:mr-3 border bg-white shadow w-full sm:w-7/12">
+    <h1 class="text-2xl text-sky-500 text-center font-semibold p-1 animation">Transacciones</h1>
+
+          <div class="card-container" v-for="transaction in transactions">
+            <template v-if="transaction.type == 'CREDIT'">
+              <div class="card flex align-left p-3 border-t bg-emerald-50 justify-between">
+                <p class="p-3 w2/6" v-cloak>{{transaction.description}} </p>
+                <div>
+                  <p class=" p-3 w2/6 text-right" v-cloak>${{transaction.amount}} </p>
+                  <p class=" p-3 w2/6 text-sm" v-cloak>{{transaction.date}}</p>
+                </div>
+              </div>
+            </template>
+            <template v-if="transaction.type == 'DEBIT'">
+              <div class="card flex p-3 border-t bg-red-50 justify-between">
+                <p class=" p-3 w2/6" v-cloak> {{transaction.description}} </p>
+                <div>
+                <p class=" p-3 w2/6 text-right" v-clock>- ${{transaction.amount}} </p>
+                <p class=" p-3 w2/6 text-sm" v-cloak>{{transaction.date}}</p>
+              </div>
+              </div>
+            </template>
+          </div>
+    <template v-if="!transactions.length">
+      <p class="p-3 border-t text-center text-slate-500 animation">Todavía no ha realizado ninguna transacción en esta cuenta</p>
+    </template>
+  </section>
+
+        <a
+                v-bind:href="'./accounts.html?id='+ account.owner_id"
+                class="fixed bottom-3 right-3 self-end rounded-lg hover:bg-red-400 text-red-400 hover:text-white px-3 py-1 border-4 border-red-400 text-2xl font-semibold focus:ring-4 focus:ring-red-200 focus:outline-none transition ease-in-out duration-500"
+        >
+         Salir
+        </a>
+        </main>
+      
+    </div>    
+    <footer
+      class="fixed bottom-0 flex flex-wrap  p-1 text-slate-700  mt-24 sm:m-0"
+    >
+    <a target="_blank" href="https://github.com/mauri-godoy"> <p  class="hover:-translate-y-2 hover:opacity-100 opacity-60 transition ease-in-out duration-500" ><i class="fab fa-github"></i> GitHub </p></a>
+<a target="_blank" href="https://www.linkedin.com/in/mauri-godoy1/"> <p  class="hover:-translate-y-2 hover:opacity-100 opacity-60 transition ease-in-out duration-500" >&nbsp<i class="fab fa-linkedin"></i> Linkedin</p></a>  
+</footer>
+
+  <script src="./js/particles.min.js"></script>
+  <script src="./js/particles.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js "></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./js/account.js"></script>
+  </body>
+</html>
