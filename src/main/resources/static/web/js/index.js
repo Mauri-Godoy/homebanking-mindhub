@@ -4,7 +4,7 @@ let app = new Vue({
   data: {
     //Para que lo pruebe cualquiera
     emailUser: "melba@mindhub.com",
-    passwordUser: "12345",
+    passwordUser: "12345678",
     email: "",
     password: "",
     firstName: "",

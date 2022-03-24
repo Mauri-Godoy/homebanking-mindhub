@@ -42,7 +42,7 @@ public class ClientController {
     @PatchMapping("/nightmode")
     public ResponseEntity<Object> activeNightMode(Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
-        client.isNightMode();
+        client.switchNightMode();
         clientRepository.save(client);
         return new ResponseEntity<>("201", HttpStatus.OK);
     }
