@@ -31,7 +31,7 @@ let app = new Vue({
       const navMenuUser = document.querySelector(".nav-menu-user");
       navMenuUser.classList.toggle("invisible");
       navMenuUser.classList.toggle("opacity-0");
-      navMenuUser.classList.toggle("right-400");
+      navMenuUser.classList.toggle("h-0");
     },
     showCard(index) {
     const cards = document.querySelector(".set-card");
