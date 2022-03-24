@@ -66,7 +66,11 @@ public class AccountController {
         if (!client.getAccounts().contains(account) || client.getAccounts().size() <= 1){
             return new ResponseEntity<>("No puedes quedarte sin cuentas", HttpStatus.FORBIDDEN);
         }
-
+        
+        if (account.getBalance() > 0){
+            return new ResponseEntity<>("No puedes eliminar una cuenta con fondos activos", HttpStatus.FORBIDDEN);
+        }
+        
         client.getAccounts().remove(account);
         accountRepository.delete(account);
         accountRemoveRepository.save(accountRemove);
